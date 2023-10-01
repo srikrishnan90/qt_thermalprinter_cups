@@ -124,30 +124,31 @@ void MainWindow::on_pushButton_4_clicked()
 
     //ui->tableWidget->grab().save("/home/pi/image.jpg");
 
-//    QPrinter printer(QPrinter::PrinterResolution);
-//    printer.setOutputFormat(QPrinter::PdfFormat);
-//    printer.setPaperSize(QPrinter::A8);
-//    printer.setOrientation(QPrinter::Portrait);
-//    printer.setOutputFileName("/home/pi/test1.pdf");
+    //    QPrinter printer(QPrinter::PrinterResolution);
+    //    printer.setOutputFormat(QPrinter::PdfFormat);
+    //    //printer.setPaperSize(QPrinter::A8);
+    //    //printer.setOrientation(QPrinter::Landscape);
+    //    printer.setOutputFileName("/home/pi/test1.pdf");
 
-        QPrinter printer;
-        printer.setPrinterName("Zijiang-ZJ-58");
+    QPrinter printer;
+    printer.setPrinterName("Zijiang-ZJ-58");
 
-        QString pname = QPrinterInfo::defaultPrinter().printerName();
-        qDebug()<<pname;
-        QStringList pnames = QPrinterInfo::availablePrinterNames();
-        for(int i=0;i<pnames.length();i++)
-            qDebug()<<pnames[i]<<i;
+    //        QString pname = QPrinterInfo::defaultPrinter().printerName();
+    //        qDebug()<<pname;
+    //        QStringList pnames = QPrinterInfo::availablePrinterNames();
+    //        for(int i=0;i<pnames.length();i++)
+    //            qDebug()<<pnames[i]<<i;
 
-        //QPrintDialog dialog(&printer, this);
-        //dialog.accept();
-        printer.setOrientation(QPrinter::Portrait);
-        printer.setPaperSize(QPrinter::A8);
-        //printer.setPaperSize(QSizeF(2, 2), QPrinter::Inch);
-        //printer.setPaperSize(QSize(58, 200),QPrinter::Millimeter);
-        //printer.setPageMargins(300, 300, 0, 0, QPrinter::Millimeter );
-        //printer.setPageMargins(QMarginsF(20,20,0,0));
-        //printer.setResolution(150);
+    //QPrintDialog dialog(&printer, this);
+    //dialog.accept();
+    printer.setOrientation(QPrinter::Landscape);
+    //printer.setPaperSize(QPrinter::A8);
+    //printer.setPaperSize(QSizeF(2, 2), QPrinter::Inch);
+    printer.setPaperSize(QSize(58, 74),QPrinter::Millimeter);
+    //printer.setPageMargins(300, 300, 0, 0, QPrinter::Millimeter );
+    //printer.setPageMargins(QMarginsF(2,2,2,2));
+    //printer.setResolution(100);
+    //printer.setOutputFileName("/home/pi/test1.pdf");
 
 
 
@@ -159,32 +160,39 @@ void MainWindow::on_pushButton_4_clicked()
     font.setLetterSpacing(QFont::PercentageSpacing,100);
     doc.setDefaultFont(font);
     doc.setPageSize(printer.pageSizeMM());
+    qDebug()<<printer.pageSizeMM()<<printer.pageSize()<<printer.pageRect()<<printer.pageRect().size();
 
-
-    QString text("<head><style>table, th, td {border: 1px solid black; }</style></head><body><h1>The thead, tbody, and tfoot elements</h1>");
+    QString text("<head><style>table, th, td {border: 1px solid black; }</style></head><body><h1style='font-size:11px'>TSH</h1>");
     text.append("<table><thead>");
     text.append("<tr>");
-    for (int i = 0; i < ui->tableWidget->columnCount(); i++) {
+    for (int i = 0; i < ui->tableWidget->columnCount(); i++)
+    {
         text.append("<th>").append(ui->tableWidget->horizontalHeaderItem(i)->data(Qt::DisplayRole).toString()).append("</th>");
     }
     text.append("</tr></thead>");
-    for (int i = 0; i < ui->tableWidget->rowCount(); i++) {
+    for (int i = 0; i < ui->tableWidget->rowCount(); i++)
+    {
         text.append("<tr>");
-        for (int j = 0; j < ui->tableWidget->columnCount(); j++) {
+        for (int j = 0; j < ui->tableWidget->columnCount(); j++)
+        {
             QTableWidgetItem *item = ui->tableWidget->item(i, j);
-            if (!item || item->text().isEmpty()) {
+            if (!item || item->text().isEmpty())
+            {
                 ui->tableWidget->setItem(i, j, new QTableWidgetItem("0"));
             }
-            text.append("<td>").append(ui->tableWidget->item(i, j)->text()).append("</td>");
-            text.append("<hr>");
+            text.append("<td>").append(ui->tableWidget->item(i, j)->text()+" ").append("</td>");
+            if(i!=ui->tableWidget->rowCount()-1)
+                text.append("<hr>");
         }
         text.append("</tr>");
-
     }
     text.append("</tbody></table>");
     doc.setHtml(text);
+
+
     doc.setPageSize(printer.pageRect().size());
     //doc.setPageSize(QSize(58, 65));
+    //doc.setPageSize(printer.pageSizeMM());
     doc.print(&printer);
 
 }

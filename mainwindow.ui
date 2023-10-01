@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>502</width>
+    <width>600</width>
     <height>320</height>
    </rect>
   </property>
@@ -14,16 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QTextEdit" name="textEdit">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>171</width>
-      <height>131</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
@@ -53,32 +43,18 @@
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>10</x>
       <y>10</y>
-      <width>191</width>
-      <height>131</height>
+      <width>561</width>
+      <height>161</height>
      </rect>
     </property>
-    <row>
-     <property name="text">
-      <string>New Row</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>New Row</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>New Row</string>
-     </property>
-    </row>
-    <row>
-     <property name="text">
-      <string>New Row</string>
-     </property>
-    </row>
+    <attribute name="horizontalHeaderVisible">
+     <bool>true</bool>
+    </attribute>
+    <attribute name="verticalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
     <row>
      <property name="text">
       <string>New Row</string>
@@ -121,112 +97,222 @@
     </row>
     <column>
      <property name="text">
-      <string>New Column</string>
+      <string>WELL</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>New Column</string>
+      <string>SAMP</string>
      </property>
     </column>
     <column>
      <property name="text">
-      <string>New Column</string>
+      <string>ABS</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>AVG</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>RESULT</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>UNIT</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>REM</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>PID</string>
      </property>
     </column>
     <item row="0" column="0">
      <property name="text">
-      <string>test</string>
+      <string>A01</string>
      </property>
     </item>
     <item row="0" column="1">
      <property name="text">
-      <string>test</string>
+      <string>B1</string>
      </property>
     </item>
     <item row="0" column="2">
      <property name="text">
-      <string>faa</string>
+      <string>0.005</string>
      </property>
     </item>
     <item row="1" column="0">
      <property name="text">
-      <string>test</string>
+      <string>B01</string>
      </property>
     </item>
     <item row="1" column="1">
      <property name="text">
-      <string>test</string>
+      <string>C1</string>
      </property>
     </item>
     <item row="1" column="2">
      <property name="text">
-      <string>afa</string>
+      <string>0.010</string>
      </property>
     </item>
     <item row="2" column="0">
      <property name="text">
-      <string>jdkadkj</string>
+      <string>C01</string>
      </property>
     </item>
     <item row="2" column="1">
      <property name="text">
-      <string>asda</string>
+      <string>C2</string>
      </property>
     </item>
     <item row="2" column="2">
      <property name="text">
-      <string>ada</string>
+      <string>0.200</string>
      </property>
     </item>
     <item row="3" column="0">
      <property name="text">
-      <string>242</string>
+      <string>D01</string>
+     </property>
+    </item>
+    <item row="3" column="1">
+     <property name="text">
+      <string>C3</string>
+     </property>
+    </item>
+    <item row="3" column="2">
+     <property name="text">
+      <string>0.800</string>
+     </property>
+    </item>
+    <item row="4" column="0">
+     <property name="text">
+      <string>E01</string>
      </property>
     </item>
     <item row="4" column="1">
      <property name="text">
-      <string>224</string>
+      <string>C4</string>
+     </property>
+    </item>
+    <item row="4" column="2">
+     <property name="text">
+      <string>1.652</string>
+     </property>
+    </item>
+    <item row="5" column="0">
+     <property name="text">
+      <string>F01</string>
      </property>
     </item>
     <item row="5" column="1">
      <property name="text">
-      <string>242</string>
+      <string>S1</string>
+     </property>
+    </item>
+    <item row="5" column="2">
+     <property name="text">
+      <string>0.535</string>
+     </property>
+    </item>
+    <item row="5" column="3">
+     <property name="text">
+      <string>2.6456</string>
+     </property>
+    </item>
+    <item row="5" column="5">
+     <property name="text">
+      <string>ng/ml</string>
+     </property>
+    </item>
+    <item row="5" column="6">
+     <property name="text">
+      <string>HIGH</string>
+     </property>
+    </item>
+    <item row="5" column="7">
+     <property name="text">
+      <string>123456</string>
+     </property>
+    </item>
+    <item row="6" column="0">
+     <property name="text">
+      <string>G01</string>
+     </property>
+    </item>
+    <item row="6" column="1">
+     <property name="text">
+      <string>S2</string>
      </property>
     </item>
     <item row="6" column="2">
      <property name="text">
-      <string>2424</string>
+      <string>1.265</string>
+     </property>
+    </item>
+    <item row="6" column="3">
+     <property name="text">
+      <string>10.556</string>
+     </property>
+    </item>
+    <item row="6" column="5">
+     <property name="text">
+      <string>ng/ml</string>
+     </property>
+    </item>
+    <item row="6" column="6">
+     <property name="text">
+      <string>LOW</string>
+     </property>
+    </item>
+    <item row="6" column="7">
+     <property name="text">
+      <string>791562</string>
      </property>
     </item>
     <item row="7" column="0">
      <property name="text">
-      <string>2424</string>
+      <string>H01</string>
      </property>
     </item>
-    <item row="8" column="1">
+    <item row="7" column="1">
      <property name="text">
-      <string>242</string>
+      <string>S3</string>
      </property>
     </item>
-    <item row="8" column="2">
+    <item row="7" column="2">
      <property name="text">
-      <string>2442</string>
+      <string>0.365</string>
      </property>
     </item>
-    <item row="9" column="2">
+    <item row="7" column="3">
      <property name="text">
-      <string>242</string>
+      <string>1.658</string>
      </property>
     </item>
-    <item row="10" column="1">
+    <item row="7" column="5">
      <property name="text">
-      <string>242</string>
+      <string>ng/ml</string>
      </property>
     </item>
-    <item row="11" column="0">
+    <item row="7" column="6">
      <property name="text">
-      <string>2424</string>
+      <string>HIGH</string>
+     </property>
+    </item>
+    <item row="7" column="7">
+     <property name="text">
+      <string>234567</string>
      </property>
     </item>
    </widget>
@@ -256,13 +342,23 @@
      <string>PushButton</string>
     </property>
    </widget>
+   <widget class="QTextEdit" name="textEdit">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>180</y>
+      <width>104</width>
+      <height>70</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>502</width>
+     <width>600</width>
      <height>20</height>
     </rect>
    </property>
