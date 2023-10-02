@@ -9,6 +9,9 @@
 #include <QPainter>
 #include <QImage>
 #include <QFileDialog>
+#include <QListWidgetItem>
+#include <QDate>
+//#include <QTime>
 
 namespace Ui {
 class MainWindow;
@@ -30,6 +33,12 @@ private slots:
     void on_pushButton_3_clicked();
 
     void on_pushButton_4_clicked();
+
+    void on_pushButton_5_clicked();
+
+    void on_pushButton_6_clicked();
+
+    void on_pushButton_7_clicked();
 
 private:
     Ui::MainWindow *ui;

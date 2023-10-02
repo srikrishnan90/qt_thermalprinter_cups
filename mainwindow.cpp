@@ -152,15 +152,17 @@ void MainWindow::on_pushButton_4_clicked()
 
 
 
+
     QTextDocument doc;
     QFont font;
     font.setPointSize(5);
-    font.setBold(QFont::Bold);
+    font.setBold(QFont::DemiBold);
     font.setFamily("Calibri");
     font.setLetterSpacing(QFont::PercentageSpacing,100);
     doc.setDefaultFont(font);
     doc.setPageSize(printer.pageSizeMM());
-    qDebug()<<printer.pageSizeMM()<<printer.pageSize()<<printer.pageRect()<<printer.pageRect().size();
+    //doc.setTextWidth(2);
+    //qDebug()<<printer.pageSizeMM()<<printer.pageSize()<<printer.pageRect()<<printer.pageRect().size();
 
     QString text("<head><style>table, th, td {border: 1px solid black; }</style></head><body><h1style='font-size:11px'>TSH</h1>");
     text.append("<table><thead>");
@@ -182,7 +184,9 @@ void MainWindow::on_pushButton_4_clicked()
             }
             text.append("<td>").append(ui->tableWidget->item(i, j)->text()+" ").append("</td>");
             if(i!=ui->tableWidget->rowCount()-1)
-                text.append("<hr>");
+            {
+                //text.append("<hr>");
+            }
         }
         text.append("</tr>");
     }
@@ -193,6 +197,101 @@ void MainWindow::on_pushButton_4_clicked()
     doc.setPageSize(printer.pageRect().size());
     //doc.setPageSize(QSize(58, 65));
     //doc.setPageSize(printer.pageSizeMM());
-    doc.print(&printer);
+
+
+    //doc.print(&printer);
+    ui->tableWidget->render(&printer);
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    QDate cd = QDate::currentDate();
+    QTime ct = QTime::currentTime();
+    QDateTime dt(QDateTime::currentDateTime());
+
+    qDebug()<<cd<<ct<<cd.toString()<<ct.toString();
+    qDebug() << dt.date().year() << dt.date().month() << dt.date().day() << dt.time().hour() << dt.time().minute() << dt.time().second();
+    QString path="TSH"+dt.currentDateTime().toString();
+    QFile file("/home/pi/"+path+".csv");
+    //QFile file("/home/pi/123.csv");
+    if (file.open(QFile::WriteOnly | QFile::Truncate))
+    {
+        QTextStream data( &file );
+        QStringList strList;
+        for( int c = 0; c < ui->tableWidget->columnCount(); ++c )
+        {
+            strList <<
+
+                       ui->tableWidget->horizontalHeaderItem(c)->data(Qt::DisplayRole).toString();
+        }
+        strList <<
+
+                   ui->textEdit->toPlainText().toUtf8()
+                   ;
+        data << strList.join(";") << "\n";
+        for( int r = 0; r < ui->tableWidget->rowCount(); ++r )
+        {
+            strList.clear();
+            for( int c = 0; c < ui->tableWidget->columnCount(); ++c )
+            {   QTableWidgetItem* item = ui->tableWidget->item(r,c);        //Load items
+                if (!item || item->text().isEmpty())                        //Test if there is something at item(r,c)
+                {
+                    ui->tableWidget->setItem(r,c,new QTableWidgetItem("0"));//IF there is nothing write 0
+                }
+                strList <<ui->tableWidget->item( r, c )->text();
+
+            }
+            data << strList.join( ";" )+"\n";
+        }
+        statusBar()->showMessage(tr("File saved successfully."), 3000);
+        file.close();
+    }
+}
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, ("Open File"), NULL, ("csv File(*.csv)"));
+    QString data;
+    QFile importedCSV(fileName);
+    QStringList rowOfData;
+    QStringList rowData;
+    data.clear();
+    rowOfData.clear();
+    rowData.clear();
+
+    if (importedCSV.open(QFile::ReadOnly))
+    {
+        data = importedCSV.readAll();
+        rowOfData = data.split("\n");           //Value on each row
+        importedCSV.close();
+    }
+
+    for (int x = 0; x < rowOfData.size(); x++)  //rowOfData.size() gives the number of row
+    {
+        rowData = rowOfData.at(x).split(";");   //Number of collumn
+        //int r=rowData.size();
+        for (int y = 0; y < rowData.size(); y++)
+        {
+            ui->tableWidget->setItem(x,y,new QTableWidgetItem(rowData[y]));
+        }
+    }
+    statusBar()->showMessage(tr("File successfully loaded."), 3000);
+}
+
+void MainWindow::on_pushButton_7_clicked()
+{
+
+
+    QDir dir("/home/pi/");
+    QStringList filters;
+    filters << "*.csv";
+    for (const QFileInfo &file : dir.entryInfoList(filters,QDir::Files))
+    {
+        QListWidgetItem *item = new QListWidgetItem(file.fileName().left(file.fileName().indexOf(".")));
+        qDebug()<<file.fileName()<<file.fileName().length()<<file.fileName().left(file.fileName().indexOf("."));
+        item->setData(Qt::UserRole, file.absolutePath()); // if you need absolute path of the file
+        ui->listWidget->addItem(item);
+    }
+
 
 }
