@@ -211,7 +211,7 @@ void MainWindow::on_pushButton_5_clicked()
 
     qDebug()<<cd<<ct<<cd.toString()<<ct.toString();
     qDebug() << dt.date().year() << dt.date().month() << dt.date().day() << dt.time().hour() << dt.time().minute() << dt.time().second();
-    QString path="TSH"+dt.currentDateTime().toString();
+    QString path="TSH "+dt.currentDateTime().toString();
     QFile file("/home/pi/"+path+".csv");
     //QFile file("/home/pi/123.csv");
     if (file.open(QFile::WriteOnly | QFile::Truncate))
@@ -281,6 +281,19 @@ void MainWindow::on_pushButton_6_clicked()
 void MainWindow::on_pushButton_7_clicked()
 {
 
+    QMessageBox msgBox;
+
+    msgBox.setWindowTitle("Warning...");
+    msgBox.setWindowFlags(Qt::FramelessWindowHint | Qt::Dialog);
+
+    msgBox.setText("Connect Waste Senor Plug Status and Click Yes to Resume. Click Cancel to Stop Washing.");
+
+    msgBox.setStandardButtons(msgBox.Yes);
+    msgBox.addButton(msgBox.Cancel);
+    msgBox.setButtonText(msgBox.Yes, "Run");
+    msgBox.setStyleSheet("QLabel{min-width:500 px; font-size: 24px;} QPushButton{ width:200px; height:50px; font-size: 18px; }");
+    if(msgBox.exec()==msgBox.Yes)
+        qDebug()<<"accepted";
 
     QDir dir("/home/pi/");
     QStringList filters;
@@ -292,6 +305,8 @@ void MainWindow::on_pushButton_7_clicked()
         item->setData(Qt::UserRole, file.absolutePath()); // if you need absolute path of the file
         ui->listWidget->addItem(item);
     }
+    int n=ui->tableWidget->currentRow();
+    qDebug()<<n;
 
 
 }

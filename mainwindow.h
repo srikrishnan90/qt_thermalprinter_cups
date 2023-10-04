@@ -12,6 +12,7 @@
 #include <QListWidgetItem>
 #include <QDate>
 //#include <QTime>
+#include <QMessageBox>
 
 namespace Ui {
 class MainWindow;
