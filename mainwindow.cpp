@@ -185,7 +185,7 @@ void MainWindow::on_pushButton_4_clicked()
             text.append("<td>").append(ui->tableWidget->item(i, j)->text()+" ").append("</td>");
             if(i!=ui->tableWidget->rowCount()-1)
             {
-                //text.append("<hr>");
+                //text.append("<hr>"); //if required line between each row
             }
         }
         text.append("</tr>");
@@ -199,8 +199,8 @@ void MainWindow::on_pushButton_4_clicked()
     //doc.setPageSize(printer.pageSizeMM());
 
 
-    //doc.print(&printer);
-    ui->tableWidget->render(&printer);
+    doc.print(&printer);
+    //ui->tableWidget->render(&printer);
 }
 
 void MainWindow::on_pushButton_5_clicked()
@@ -306,7 +306,18 @@ void MainWindow::on_pushButton_7_clicked()
         ui->listWidget->addItem(item);
     }
     int n=ui->tableWidget->currentRow();
-    qDebug()<<n;
+    int col=ui->tableWidget->columnCount();
+    qDebug()<<n<<col;
+    for(int i=0;i<ui->tableWidget->columnCount();i++)
+    {
+        if(ui->tableWidget->item(n,i))
+        {
+            QString val=ui->tableWidget->item(n,i)->text();
+            qDebug()<<val;
+        }
+        //qDebug()<<n<<i;
+    }
+    //qDebug()<<"exit";
 
 
 }
