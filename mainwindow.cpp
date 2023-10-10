@@ -131,7 +131,7 @@ void MainWindow::on_pushButton_4_clicked()
     //    printer.setOutputFileName("/home/pi/test1.pdf");
 
     QPrinter printer;
-    printer.setPrinterName("Zijiang-ZJ-58");
+    printer.setPrinterName("Internal");
 
     //        QString pname = QPrinterInfo::defaultPrinter().printerName();
     //        qDebug()<<pname;
@@ -251,6 +251,7 @@ void MainWindow::on_pushButton_5_clicked()
 void MainWindow::on_pushButton_6_clicked()
 {
     QString fileName = QFileDialog::getOpenFileName(this, ("Open File"), NULL, ("csv File(*.csv)"));
+    qDebug()<<fileName;
     QString data;
     QFile importedCSV(fileName);
     QStringList rowOfData;
@@ -318,6 +319,117 @@ void MainWindow::on_pushButton_7_clicked()
         //qDebug()<<n<<i;
     }
     //qDebug()<<"exit";
+
+
+}
+
+void MainWindow::on_pushButton_8_clicked()
+{
+
+
+        //QPrinter printer(QPrinter::PrinterResolution);
+        //printer.setOutputFormat(QPrinter::PdfFormat);
+        //printer.setPaperSize(QPrinter::A8);
+        //printer.setOrientation(QPrinter::Landscape);
+        //printer.setOutputFileName("/home/pi/test1.pdf");
+
+    QPrinter printer;
+    printer.setPrinterName("Internal");
+
+
+    printer.setOrientation(QPrinter::Landscape);
+    //printer.setPaperSize(QPrinter::A8);
+    //printer.setPaperSize(QSizeF(2, 2), QPrinter::Inch);
+    printer.setPaperSize(QSize(58, 105),QPrinter::Millimeter);
+    //printer.setPageMargins(300, 300, 0, 0, QPrinter::Millimeter );
+    //printer.setPageMargins(QMarginsF(2,2,2,2));
+    //printer.setResolution(100);
+    //printer.setOutputFileName("/home/pi/test1.pdf");
+
+
+    QTextDocument doc;
+    QFont font;
+    font.setPointSize(5);
+    font.setBold(QFont::DemiBold);
+    font.setFamily("Calibri");
+    font.setLetterSpacing(QFont::PercentageSpacing,100);
+    doc.setDefaultFont(font);
+    doc.setPageSize(printer.pageSizeMM());
+    //doc.setTextWidth(2);
+    //qDebug()<<printer.pageSizeMM()<<printer.pageSize()<<printer.pageRect()<<printer.pageRect().size();
+
+
+
+
+
+    QString text("<head><style>table, th, td {border: 2px solid black; }</style></head><body><h1style='font-size:11px'>TSH</h1>");
+    text.append("<table><thead>");
+    QString vind[8]={"A","B","C","D","E","F","G","H"};
+    QString hind[13]={" 00 "," 01 "," 02 "," 03 "," 04 "," 05 "," 06 "," 07 "," 08 "," 09 "," 10 "," 11 "," 12 "};
+    QString dis[96], res[96];
+    for(int i=0;i<96;i++)
+    {
+        //dis[i]="S"+QString::number(i);
+        res[i]=QString::number(0.005);
+    }
+
+    text.append("<tr>");
+    for(int j=0;j<13;j++)
+    {
+        text.append("<td>").append(hind[j]).append("</td>");
+    }
+    text.append("</tr>");
+
+    for (int i = 0; i < 8; i++)
+    {
+        text.append("<tr>");
+        for(int j=0;j<12;j++)
+        {
+            if(j==0)
+                text.append("<td>").append(vind[i]).append("</td>");
+            text.append("<td>").append(dis[i+(j*8)]).append(res[i+(j*8)]+" ").append("</td>");
+            //text.append("<hr>");//if required line between each row
+        }
+        text.append("</tr>");
+    }
+
+
+    text.append("</tbody></table>");
+    doc.setDefaultStyleSheet("table { border: 1px solid black}");
+    doc.setHtml(text);
+    doc.setPageSize(printer.pageRect().size());
+    doc.print(&printer);
+
+
+
+
+
+    /*QString name="sri";
+    QString surname="sri";
+    QString age="sri";
+    QString *html = new QString();
+    *html = "<table width=100% style='background-color:#000;'>"
+            "<tr>"
+            "<td style='padding:1px '>"
+            "            <table width= 100% style='background-color:#fff;'>"
+            "              <tr align='left'>"
+            "                <th>For</th>"
+            "                <th>Myself</th>"
+            "             </tr>"
+            "              <tr align='left'>"
+            "                <th>Attention</th>"
+            "                <th>Mother</th>"
+            "              </table>"
+            "            </td>"
+            "            </tr>"
+            "            </table>";
+    QTextDocument doc1;
+    doc1.setDefaultFont(font);
+    doc1.setPageSize(printer.pageRect().size());
+    doc1.setDefaultStyleSheet("table { border: 1px solid black}");
+    doc1.setHtml(*html);
+    doc1.print(&printer);
+    */
 
 
 }

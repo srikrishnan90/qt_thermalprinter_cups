@@ -50,7 +50,7 @@
      </rect>
     </property>
     <attribute name="horizontalHeaderVisible">
-     <bool>true</bool>
+     <bool>false</bool>
     </attribute>
     <attribute name="horizontalHeaderCascadingSectionResizes">
      <bool>true</bool>
@@ -342,7 +342,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Print</string>
     </property>
    </widget>
    <widget class="QTextEdit" name="textEdit">
@@ -400,6 +400,29 @@
       <x>380</x>
       <y>20</y>
       <width>201</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_8">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>280</y>
+      <width>80</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Print Matrix</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="textBrowser">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>10</y>
+      <width>256</width>
       <height>192</height>
      </rect>
     </property>
