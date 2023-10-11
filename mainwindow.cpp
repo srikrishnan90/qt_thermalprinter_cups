@@ -144,7 +144,7 @@ void MainWindow::on_pushButton_4_clicked()
     printer.setOrientation(QPrinter::Landscape);
     //printer.setPaperSize(QPrinter::A8);
     //printer.setPaperSize(QSizeF(2, 2), QPrinter::Inch);
-    printer.setPaperSize(QSize(58, 74),QPrinter::Millimeter);
+    printer.setPaperSize(QSize(58, 84),QPrinter::Millimeter);
     //printer.setPageMargins(300, 300, 0, 0, QPrinter::Millimeter );
     //printer.setPageMargins(QMarginsF(2,2,2,2));
     //printer.setResolution(100);
@@ -155,7 +155,7 @@ void MainWindow::on_pushButton_4_clicked()
 
     QTextDocument doc;
     QFont font;
-    font.setPointSize(5);
+    font.setPointSize(6);
     font.setBold(QFont::DemiBold);
     font.setFamily("Calibri");
     font.setLetterSpacing(QFont::PercentageSpacing,100);
@@ -169,7 +169,7 @@ void MainWindow::on_pushButton_4_clicked()
     text.append("<tr>");
     for (int i = 0; i < ui->tableWidget->columnCount(); i++)
     {
-        text.append("<th>").append(ui->tableWidget->horizontalHeaderItem(i)->data(Qt::DisplayRole).toString()).append("</th>");
+        text.append("<th>").append(ui->tableWidget->horizontalHeaderItem(i)->data(Qt::DisplayRole).toString()).append(" ").append("</th>");
     }
     text.append("</tr></thead>");
     for (int i = 0; i < ui->tableWidget->rowCount(); i++)
@@ -340,7 +340,7 @@ void MainWindow::on_pushButton_8_clicked()
     printer.setOrientation(QPrinter::Landscape);
     //printer.setPaperSize(QPrinter::A8);
     //printer.setPaperSize(QSizeF(2, 2), QPrinter::Inch);
-    printer.setPaperSize(QSize(58, 105),QPrinter::Millimeter);
+    printer.setPaperSize(QSize(58, 120),QPrinter::Millimeter);
     //printer.setPageMargins(300, 300, 0, 0, QPrinter::Millimeter );
     //printer.setPageMargins(QMarginsF(2,2,2,2));
     //printer.setResolution(100);
@@ -349,7 +349,7 @@ void MainWindow::on_pushButton_8_clicked()
 
     QTextDocument doc;
     QFont font;
-    font.setPointSize(5);
+    font.setPointSize(7);
     font.setBold(QFont::DemiBold);
     font.setFamily("Calibri");
     font.setLetterSpacing(QFont::PercentageSpacing,100);
@@ -362,8 +362,12 @@ void MainWindow::on_pushButton_8_clicked()
 
 
 
-    QString text("<head><style>table, th, td {border: 2px solid black; }</style></head><body><h1style='font-size:11px'>TSH</h1>");
-    text.append("<table><thead>");
+    QString text("<head><style>table, th, td {border: 2px solid black; }</style></head><body><h1style='font-size:11px'>TSH</h1>"); //no border
+    //QString text("<table border='1' border-collapse='collapse' border-color='red' width='300' cellspacing='0' cellpadding='0'>"); //table borders working but dotted lines in printer
+    //QString text("<table width=100% style='background-color:#000;'><tr><td style='padding:1px '><table width= 100% style='background-color:#fff;'>"); //only outer border not cell border
+    //QString text("<head><style><table border='2' cellpadding='0' cellspacing='0' style='border-collapse:'></style></head>");
+
+    //text.append("<table><thead>");
     QString vind[8]={"A","B","C","D","E","F","G","H"};
     QString hind[13]={" 00 "," 01 "," 02 "," 03 "," 04 "," 05 "," 06 "," 07 "," 08 "," 09 "," 10 "," 11 "," 12 "};
     QString dis[96], res[96];
@@ -394,42 +398,28 @@ void MainWindow::on_pushButton_8_clicked()
     }
 
 
-    text.append("</tbody></table>");
-    doc.setDefaultStyleSheet("table { border: 1px solid black}");
+    //text.append("</body></table>");
+    //doc.setDefaultStyleSheet("table {border-collapse: collapse;}tr{border-bottom: 1px solid black;}");
+
     doc.setHtml(text);
     doc.setPageSize(printer.pageRect().size());
     doc.print(&printer);
 
 
 
-
-
-    /*QString name="sri";
-    QString surname="sri";
-    QString age="sri";
     QString *html = new QString();
-    *html = "<table width=100% style='background-color:#000;'>"
-            "<tr>"
-            "<td style='padding:1px '>"
-            "            <table width= 100% style='background-color:#fff;'>"
-            "              <tr align='left'>"
-            "                <th>For</th>"
-            "                <th>Myself</th>"
-            "             </tr>"
-            "              <tr align='left'>"
-            "                <th>Attention</th>"
-            "                <th>Mother</th>"
-            "              </table>"
-            "            </td>"
-            "            </tr>"
-            "            </table>";
+
+
+    *html = "<table width=100% style='background-color:#000;'><tr><td style='padding:1px '><table width= 100% style='background-color:#fff;'>"
+            "<tr align='left'><th>For</th><th>Myself</th></tr><tr align='left'><th>Attention</th><th>Mother</th></table></td></tr></table>";
+
     QTextDocument doc1;
     doc1.setDefaultFont(font);
     doc1.setPageSize(printer.pageRect().size());
-    doc1.setDefaultStyleSheet("table { border: 1px solid black}");
+    //doc1.setDefaultStyleSheet("table border=\"1\" border-collapse=\"collapse\" border-color=\"red\" width=\"300\" cellspacing=\"0\" cellpadding=\"0\"");
     doc1.setHtml(*html);
-    doc1.print(&printer);
-    */
+    //doc1.print(&printer);
+
 
 
 }
