@@ -327,11 +327,11 @@ void MainWindow::on_pushButton_8_clicked()
 {
 
 
-        //QPrinter printer(QPrinter::PrinterResolution);
-        //printer.setOutputFormat(QPrinter::PdfFormat);
-        //printer.setPaperSize(QPrinter::A8);
-        //printer.setOrientation(QPrinter::Landscape);
-        //printer.setOutputFileName("/home/pi/test1.pdf");
+    //QPrinter printer(QPrinter::PrinterResolution);
+    //printer.setOutputFormat(QPrinter::PdfFormat);
+    //printer.setPaperSize(QPrinter::A8);
+    //printer.setOrientation(QPrinter::Landscape);
+    //printer.setOutputFileName("/home/pi/test1.pdf");
 
     QPrinter printer;
     printer.setPrinterName("Internal");
@@ -340,7 +340,7 @@ void MainWindow::on_pushButton_8_clicked()
     printer.setOrientation(QPrinter::Landscape);
     //printer.setPaperSize(QPrinter::A8);
     //printer.setPaperSize(QSizeF(2, 2), QPrinter::Inch);
-    printer.setPaperSize(QSize(58, 120),QPrinter::Millimeter);
+    printer.setPaperSize(QSize(58, 125),QPrinter::Millimeter);
     //printer.setPageMargins(300, 300, 0, 0, QPrinter::Millimeter );
     //printer.setPageMargins(QMarginsF(2,2,2,2));
     //printer.setResolution(100);
@@ -420,6 +420,165 @@ void MainWindow::on_pushButton_8_clicked()
     doc1.setHtml(*html);
     //doc1.print(&printer);
 
+    //ui->webView->load(QUrl("http://google.com/"));
+    //ui->webView->show();
 
 
+
+}
+
+void MainWindow::on_pushButton_9_clicked()
+{
+    QWebView web;
+    QStringList head,val;
+    head<<"WELL"<<"SAMP"<<"ABS"<<"AVG"<<"RESULT"<<"UNIT"<<"REM"<<"PID";
+    val<<"A01"<<"S1"<<"2.556"<<"2.500"<<"<567"<<"ng/ml"<<"HIGH"<<"156783";
+    QString text("<head><style>table, th, td {border: 1px solid black;border-collapse: collapse;text-align:left;}table.center { margin-left: auto; margin-right: auto;}</style></head>");
+    text.append("<body>");
+    text.append("<h1 style='font-size:10px;text-align:center'>");
+    text.append("tsh").append("<br>").append("date").append("<br>").append("time");
+    text.append("</h1>");
+    text.append("<table class='center' style='width:30%'>");
+    for (int i = 0; i < head.length(); i++)
+    {
+        text.append("<tr>");
+        //text.append("<th style='text-align: center'>").append(head[i]).append(" ").append("</th>");
+        //text.append("<td style='text-align: center'>").append(val[i]).append(" ").append("</td>");
+        text.append("<th>").append(head[i]).append(" ").append("</th>");
+        //if(val[i][0]=="<")
+        //    val[i].replace("<","&lt;");//since html not considering < as character, it affect the printer
+        text.append("<td>").append(val[i]).append(" ").append("</td>");
+        text.append("</tr>");
+    }
+    text.append("</table></body>");
+    web.setHtml(text);
+
+    QPrinter printer;
+    QString printername;
+
+    printer.setPrinterName("Internal");
+    printer.setOrientation(QPrinter::Portrait);
+    printer.setPageOrder(QPrinter::FirstPageFirst);//not working, need to check----update working with QWebView
+    printer.setPaperSize(QSize(58, 74),QPrinter::Millimeter);//paper_length 84 for table and 125 for matrix
+    //printer.setOutputFileName("/home/pi/test1.pdf");
+
+    QFont font;
+    font.setPointSize(6);
+    font.setBold(QFont::DemiBold);
+    font.setFamily("Calibri");
+    font.setLetterSpacing(QFont::PercentageSpacing,100);
+    //doc.setDefaultFont(font);
+    //doc.setPageSize(printer.pageRect().size());
+
+
+    web.print(&printer);
+}
+
+void MainWindow::on_pushButton_10_clicked()
+{
+
+
+    QWebView web;
+    QString text="<html> <head> </head> <body> <img href='/home/pi/Desktop/test123.png'/> </body> </html>";
+    web.setHtml(text);
+
+            QPrinter printer;
+            QString printername;
+
+            printer.setPrinterName("Internal");
+            printer.setOrientation(QPrinter::Portrait);
+            printer.setPageOrder(QPrinter::FirstPageFirst);//not working, need to check----update working with QWebView
+            printer.setPaperSize(QSize(58, 74),QPrinter::Millimeter);//paper_length 84 for table and 125 for matrix
+            //printer.setPaperSize(QPrinter::A4);
+            //printer.setOutputFileName("/home/pi/test1.pdf");
+
+            ui->tableWidget->grab().save("/home/pi/123.png");
+
+
+    //        QFont font;
+    //        font.setPointSize(6);
+    //        font.setBold(QFont::DemiBold);
+    //        font.setFamily("Calibri");
+    //        font.setLetterSpacing(QFont::PercentageSpacing,100);
+    //        //doc.setDefaultFont(font);
+    //        //doc.setPageSize(printer.pageRect().size());
+    //        web.print(&printer);
+    //        ui->tableWidget->grab().save("/home/pi/123.png");
+    //         QPixmap p = ui->tableWidget->grab();
+
+    //QPrinter printer(QPrinter::HighResolution);
+//    printer.setPrinterName("Internal");
+//    printer.setOutputFormat(QPrinter::PdfFormat);
+//    printer.setOutputFileName("/home/pi/output.pdf");
+//    printer.setPageMargins(12, 16, 12, 20, QPrinter::Millimeter);
+//    printer.setFullPage(false);
+
+//    QPainter painter;
+//    painter.begin(&printer);
+//    double xscale = printer.pageRect().width()/double(ui->tableWidget->width());
+//    double yscale = printer.pageRect().height()/double(ui->tableWidget->height());
+//    double scale = qMin(xscale, yscale);
+//    painter.translate(printer.paperRect().x() + printer.pageRect().width()/2,
+//                      printer.paperRect().y() + printer.pageRect().height()/2);
+//    painter.scale(scale, scale);
+//    painter.translate(-width()/2, -height()/2);
+
+//    ui->tableWidget->render(&painter);
+//    painter.end();
+
+    //QPrinter printer;
+
+                   QImage img("/home/pi/123.png");
+                   QPainter painter(&printer);
+                   painter.drawImage(QPoint(20,20),img);
+                   painter.end();
+
+
+}
+
+void MainWindow::on_pushButton_11_clicked()
+{
+//    QWebView web;
+//    QStringList head,val;
+//    head<<"WELL"<<"SAMP"<<"ABS"<<"AVG"<<"RESULT"<<"UNIT"<<"REM"<<"PID";
+//    val<<"A01"<<"S1"<<"2.556"<<"2.500"<<"<567"<<"ng/ml"<<"HIGH"<<"156783";
+//    QString text("<head><style>table, th, td {border: 1px solid black;border-collapse: collapse;text-align:left;}table.center { margin-left: auto; margin-right: auto;}</style></head>");
+//    text.append("<body>");
+//    text.append("<h1 style='font-size:10px;text-align:center'>");
+//    text.append("tsh").append("<br>").append("date").append("<br>").append("time");
+//    text.append("</h1>");
+//    text.append("<table class='center' style='width:30%'>");
+//    for (int i = 0; i < head.length(); i++)
+//    {
+//        text.append("<tr>");
+//        //text.append("<th style='text-align: center'>").append(head[i]).append(" ").append("</th>");
+//        //text.append("<td style='text-align: center'>").append(val[i]).append(" ").append("</td>");
+//        text.append("<th>").append(head[i]).append(" ").append("</th>");
+//        //if(val[i][0]=="<")
+//        //    val[i].replace("<","&lt;");//since html not considering < as character, it affect the printer
+//        text.append("<td>").append(val[i]).append(" ").append("</td>");
+//        text.append("</tr>");
+//    }
+//    text.append("</table></body>");
+//    web.setHtml(text);
+
+//    QPrinter printer;
+//    QString printername;
+
+//    printer.setPrinterName("Internal");
+//    printer.setOrientation(QPrinter::Portrait);
+//    printer.setPageOrder(QPrinter::FirstPageFirst);//not working, need to check----update working with QWebView
+//    printer.setPaperSize(QSize(58, 74),QPrinter::Millimeter);//paper_length 84 for table and 125 for matrix
+//    //printer.setOutputFileName("/home/pi/test1.pdf");
+
+//    QFont font;
+//    font.setPointSize(6);
+//    font.setBold(QFont::DemiBold);
+//    font.setFamily("Calibri");
+//    font.setLetterSpacing(QFont::PercentageSpacing,100);
+//    //doc.setDefaultFont(font);
+//    //doc.setPageSize(printer.pageRect().size());
+
+
+//    web.print(&printer);
 }
